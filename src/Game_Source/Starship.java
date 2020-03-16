@@ -8,11 +8,11 @@ import Game_Source.Element;
 
 public class Starship extends Element {
 	
-	ImageIcon Imagem = new ImageIcon("sprites/starship.png");
+	ImageIcon Imagem = new ImageIcon("Sprites_Source/starship.png");
 	public Starship() {
 		setWidth(30);
 	    setHeight(40);
-		setImage(new ImageIcon("sprites/starship.png"));
+		setImage(new ImageIcon("Sprites_Source/starship.png"));
 	}
 	
 	@Override

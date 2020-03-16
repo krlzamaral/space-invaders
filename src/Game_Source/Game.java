@@ -143,11 +143,11 @@ public class Game extends JFrame {
 
 	private Random rand = new Random();
 	
-	ImageIcon title = new ImageIcon("sprites/space_invaders_logo.png");
+	ImageIcon title = new ImageIcon("Sprites_Source/space_invaders_logo.png");
 	
 	private void titleScreen( ) {
 		try {	
-			AudioInputStream as = AudioSystem.getAudioInputStream(new File("audio/background_music.wav"));
+			AudioInputStream as = AudioSystem.getAudioInputStream(new File("Audio_Source/background_music.wav"));
 			Clip clip = AudioSystem.getClip();
 			clip.open(as);
 			clip.loop(Clip.LOOP_CONTINUOUSLY);
@@ -220,7 +220,7 @@ public class Game extends JFrame {
 		long nextRefresh = 0;
 		
 		try {	
-			AudioInputStream as = AudioSystem.getAudioInputStream(new File("audio/danger_zone.wav"));
+			AudioInputStream as = AudioSystem.getAudioInputStream(new File("Audio_Source/danger_zone.wav"));
 			Clip clip = AudioSystem.getClip();
 			clip.open(as);
 			clip.loop(Clip.LOOP_CONTINUOUSLY);
@@ -446,7 +446,7 @@ public class Game extends JFrame {
 	private void gameOverScreen( ) {
 		
 		try {	
-			AudioInputStream as = AudioSystem.getAudioInputStream(new File("audio/background_music.wav"));
+			AudioInputStream as = AudioSystem.getAudioInputStream(new File("Audio_Source/background_music.wav"));
 			Clip clip = AudioSystem.getClip();
 			clip.open(as);
 			clip.loop(Clip.LOOP_CONTINUOUSLY);

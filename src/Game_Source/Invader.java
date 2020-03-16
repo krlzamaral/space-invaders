@@ -15,13 +15,13 @@ public class Invader extends Element {
 	private Types type;
 	private boolean open;
 	
-	ImageIcon AlienA1 = new ImageIcon("sprites/alien_a1.png");
-	ImageIcon AlienA2 = new ImageIcon("sprites/alien_a2.png");
-	ImageIcon AlienB1 = new ImageIcon("sprites/alien_b1.png");
-	ImageIcon AlienB2 = new ImageIcon("sprites/alien_b2.png");
-	ImageIcon AlienC1 = new ImageIcon("sprites/alien_c1.png");
-	ImageIcon AlienC2 = new ImageIcon("sprites/alien_c2.png");
-	ImageIcon Ufo = new ImageIcon("sprites/ufo.png");
+	ImageIcon AlienA1 = new ImageIcon("Sprites_Source/alien_a1.png");
+	ImageIcon AlienA2 = new ImageIcon("Sprites_Source/alien_a2.png");
+	ImageIcon AlienB1 = new ImageIcon("Sprites_Source/alien_b1.png");
+	ImageIcon AlienB2 = new ImageIcon("Sprites_Source/alien_b2.png");
+	ImageIcon AlienC1 = new ImageIcon("Sprites_Source/alien_c1.png");
+	ImageIcon AlienC2 = new ImageIcon("Sprites_Source/alien_c2.png");
+	ImageIcon Ufo = new ImageIcon("Sprites_Source/ufo.png");
 
 	public Invader(Types t) {
 		this.type = t;
