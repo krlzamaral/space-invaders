@@ -33,7 +33,7 @@ public class Game extends JFrame {
 	
 	private int level = 1;
 	
-	private int FPS = 1000 / (20 * level);
+	private int FPS;
 
 	private JPanel screen;
 
@@ -95,6 +95,10 @@ public class Game extends JFrame {
 			
 		case KeyEvent.VK_SPACE:
 			keyboard[2] = pressed;
+			break;
+			
+		case KeyEvent.VK_ENTER:
+			keyboard[3] = pressed;
 			break;
 		}
 	}
@@ -173,9 +177,25 @@ public class Game extends JFrame {
 		}
 		
 	}
+	
+	private void levelScreen( ) {
+		while(!keyboard[3]) {
+					screen.repaint();
+					
+					g2d.setColor(Color.WHITE);
+					text.draw(g2d, "LEVEL:  " + level, 190, 250);
+					text.draw(g2d, "SCORE:  " + score, 190, 300);
+					text.draw(g2d, "LIVES:  " + lifes, 190, 350);
+					text.draw(g2d, "P R E S S      E N T E R", 125, 450);
+					
+					screen.repaint();
+		}
+		
+	}
 
 	private void loadingGame() {
-
+		FPS = 1000 / (15 * (level + 1));
+		
 		starship = new Starship();
 		starship.setVel(3);
 		starship.setActive(true);
@@ -183,7 +203,7 @@ public class Game extends JFrame {
 		starship.setPy(screen.getHeight() - starship.getHeight() - baseLine);
 
 		shootstarship = new Shoot();
-		shootstarship.setVel(-15);
+		shootstarship.setVel(-40);
 
 		boss = new Invader(Invader.Types.BOSS);
 
@@ -238,7 +258,11 @@ public class Game extends JFrame {
 					if (destroyed == enemies) {
 						destroyed = 0;
 						level++;
+						clip.stop();
+						levelScreen();
 						loadingGame();
+						clip.setMicrosecondPosition(0);
+						clip.loop(Clip.LOOP_CONTINUOUSLY);
 
 						continue;
 					}
@@ -246,9 +270,10 @@ public class Game extends JFrame {
 					if (count > stepCount) {
 						moveEnemies = true;
 						count = 0;
-						stepCount = enemies - destroyed - level * level;
+						stepCount -= destroyed;
 
 					} else {
+						stepCount = enemies;
 						count++;
 					}
 
@@ -443,8 +468,7 @@ public class Game extends JFrame {
 
 	}
 	
-	private void gameOverScreen( ) {
-		
+	private boolean gameOverScreen( ) {
 		try {	
 			AudioInputStream as = AudioSystem.getAudioInputStream(new File("Audio_Source/background_music.wav"));
 			Clip clip = AudioSystem.getClip();
@@ -455,11 +479,12 @@ public class Game extends JFrame {
 			g2d.fillRect(0, 0, WIN_WIDTH, WIN_HEIGHT);	
 			g2d.drawImage(title.getImage(), 0, 0, 520, 640, null, null);
 			
-			while(!keyboard[2]) {
+			while(!keyboard[3]) {
 				
 				screen.repaint();
 				g2d.setColor(Color.WHITE);
 				text.draw(g2d, "G A M E      O V E R", 150, 250);
+				text.draw(g2d, "Press \"Enter\" to Restart", 130, 350);
 				text.draw(g2d, "SCORE:  " + String.valueOf(score), 190, 400);
 				screen.repaint();
 				
@@ -467,9 +492,11 @@ public class Game extends JFrame {
 			
 			clip.stop();
 			clip.close();
+			return true;
 			
 		} catch (Exception e) {
 				e.printStackTrace();
+				return true;
 		}
 		
 	}
@@ -483,12 +510,17 @@ public class Game extends JFrame {
 	}
 
 	public static void main(String[] args) {
+		boolean restartOn = true;
 		
 		Game spaceInvaders = new Game();
 		spaceInvaders.titleScreen();
-		spaceInvaders.loadingGame();
-		spaceInvaders.startGame();
-		spaceInvaders.gameOverScreen();	
+		
+		while(restartOn){
+			spaceInvaders.loadingGame();
+			spaceInvaders.startGame();
+			spaceInvaders.gameOverScreen();
+			spaceInvaders = new Game();
+		}
 	}
 
 }
